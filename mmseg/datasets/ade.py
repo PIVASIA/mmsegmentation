@@ -18,10 +18,9 @@ class ADE20KDataset(CustomDataset):
     The ``img_suffix`` is fixed to '.jpg' and ``seg_map_suffix`` is fixed to
     '.png'.
     """
-    CLASSES = (
-        'bienhieu', 'bienbao', 'background')
+    CLASSES = ('bienhieu', 'bienbao')
 
-    PALETTE = [[38, 38, 38], [75, 75, 75], [0, 0, 0]]
+    PALETTE = [[38, 38, 38], [75, 75, 75]]
 
     def __init__(self, **kwargs):
         super(ADE20KDataset, self).__init__(
