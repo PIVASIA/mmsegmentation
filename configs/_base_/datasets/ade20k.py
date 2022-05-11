@@ -1,5 +1,5 @@
 # dataset settings
-dataset_type = 'ADE20KDataset'
+dataset_type = 'CityscapesCustomDataset'
 data_root = 'data/ade/ADEChallengeData2016'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -39,16 +39,19 @@ data = dict(
         data_root=data_root,
         img_dir='images/training',
         ann_dir='annotations/training',
-        pipeline=train_pipeline),
+        pipeline=train_pipeline,
+        split='images/training.txt'),
     val=dict(
         type=dataset_type,
         data_root=data_root,
         img_dir='images/validation',
         ann_dir='annotations/validation',
-        pipeline=test_pipeline),
+        pipeline=test_pipeline,
+        split='images/validation.txt'),
     test=dict(
         type=dataset_type,
         data_root=data_root,
         img_dir='images/validation',
         ann_dir='annotations/validation',
-        pipeline=test_pipeline))
+        pipeline=test_pipeline,
+        split='images/validation.txt'))

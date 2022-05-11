@@ -1,13 +1,14 @@
 # dataset settings
-dataset_type = 'CityscapesDataset'
+dataset_type = 'CityscapesCustomDataset'
+# dataset_type = 'CityscapesDataset'
 data_root = 'data/cityscapes/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
-crop_size = (512, 1024)
+crop_size = (256, 256)
 train_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(type='LoadAnnotations'),
-    dict(type='Resize', img_scale=(2048, 1024), ratio_range=(0.5, 2.0)),
+    dict(type='Resize', img_scale=(320, 240), ratio_range=(0.5, 2.0)),
     dict(type='RandomCrop', crop_size=crop_size, cat_max_ratio=0.75),
     dict(type='RandomFlip', prob=0.5),
     dict(type='PhotoMetricDistortion'),
@@ -20,7 +21,7 @@ test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=(2048, 1024),
+        img_scale=(320, 240),
         # img_ratios=[0.5, 0.75, 1.0, 1.25, 1.5, 1.75],
         flip=False,
         transforms=[
@@ -37,18 +38,21 @@ data = dict(
     train=dict(
         type=dataset_type,
         data_root=data_root,
-        img_dir='leftImg8bit/train',
-        ann_dir='gtFine/train',
-        pipeline=train_pipeline),
+        img_dir='images',
+        ann_dir='labels',
+        pipeline=train_pipeline,
+        split = 'splits/train.txt'),
     val=dict(
         type=dataset_type,
         data_root=data_root,
-        img_dir='leftImg8bit/val',
-        ann_dir='gtFine/val',
-        pipeline=test_pipeline),
+        img_dir='images',
+        ann_dir='labels',
+        pipeline=test_pipeline,
+        split = 'splits/val.txt'),
     test=dict(
         type=dataset_type,
         data_root=data_root,
-        img_dir='leftImg8bit/val',
-        ann_dir='gtFine/val',
-        pipeline=test_pipeline))
+        img_dir='images',
+        ann_dir='labels',
+        pipeline=test_pipeline,
+        split = 'splits/val.txt'))
